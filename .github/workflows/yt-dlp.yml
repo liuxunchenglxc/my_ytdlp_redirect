@@ -1,0 +1,35 @@
+name: yt-dlp
+
+on:
+  push:
+    branches: [ "main" ]  # 当代码推送到 main 分支时触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: .
+        
+    permissions:
+      contents: read
+      packages: write     # 必须有写入包的权限
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Download yt-dlp
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: 'yt-dlp/yt-dlp'
+          latest: true
+          fileName: 'yt-dlp_linux'
+      
+      - name: Make the script files executable
+        run: chmod +x my-script.sh
+
+      - name: Run the scripts
+        run: ./my-script.sh
+        
