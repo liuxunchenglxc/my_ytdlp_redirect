@@ -69,13 +69,9 @@ jobs:
         run: rm ./my-script.sh
 
       - name: Send rest thing to remote
-        run: |
-          scp -r -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} ./* ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/
-
-      - name: Send rest thing to remote
         env:
           DEST: "${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/"
         run: |
-          rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./* $DEST
+          rsync -avP -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -c chacha20-poly1305@openssh.com" ./* $DEST
 
         
