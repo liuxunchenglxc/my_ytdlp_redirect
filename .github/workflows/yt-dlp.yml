@@ -53,11 +53,12 @@ jobs:
       - name: Upload cookies.txt to here
         env:
           SRCE: "${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/cookies.txt"
+          PARM: "-i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} -c chacha20-poly1305@openssh.com"
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} $SRCE ./cookies.txt
+          scp $PARM $SRCE ./cookies.txt
       
       - name: Make the script files executable
         run: chmod +x my-script.sh yt-dlp_linux
@@ -71,7 +72,8 @@ jobs:
       - name: Send rest thing to remote
         env:
           DEST: "${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/"
+          PARM: "-i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} -c chacha20-poly1305@openssh.com"
         run: |
-          rsync -av -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -c chacha20-poly1305@openssh.com" ./* $DEST
+          scp $PARM ./* $DEST
 
         
