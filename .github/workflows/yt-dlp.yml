@@ -68,6 +68,6 @@ jobs:
 
       - name: Send rest thing to remote
         run: |
-          scp -r -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ./* ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/
+          scp -r -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} ./* ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/
       
         
