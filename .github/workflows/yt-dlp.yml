@@ -57,7 +57,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          scp -v -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} $SRCE ./cookies.txt
+          scp -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -P ${{ secrets.REMOTE_PORT }} $SRCE ./cookies.txt
       
       - name: Make the script files executable
         run: chmod +x my-script.sh yt-dlp_linux
