@@ -1,4 +1,4 @@
 #!/bin/bash
-
-ls $GITHUB_WORKSPACE/my-downloads
+url='https://www.youtube.com/watch?v=DmFdxaLgD70'
+./yt-dlp_linux -N 4 --extractor-args "generic:impersonate" --embed-thumbnail --embed-metadata --audio-quality 0 $url
 ls .
