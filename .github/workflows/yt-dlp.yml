@@ -72,6 +72,6 @@ jobs:
         env:
           DEST: "${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_DIR }}/"
         run: |
-          rsync -avP -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -c chacha20-poly1305@openssh.com" ./* $DEST
+          rsync -av -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no -c chacha20-poly1305@openssh.com" ./* $DEST
 
         
